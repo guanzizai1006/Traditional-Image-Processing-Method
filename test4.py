@@ -18,7 +18,14 @@ segmentation.clear_border(cleared)  #清除与边界相连的目标物
 label_image =measure.label(cleared)  #连通区域标记
 borders = np.logical_xor(bw, cleared) #异或
 label_image[borders] = -1
+
+
 image_label_overlay =color.label2rgb(label_image, image=image) #不同标记用不同颜色显示
+"""bruce说，这是在skimage.color()模块下的结果，在color模块的颜色空间转换函数中，还有一个比较有用的函数是
+skimage.color.label2rgb(arr), 可以根据标签值对图片进行着色。以后的图片分类后着色就可以用这个函数。
+例：将lena图片分成三类，然后用默认颜色对三类进行着色	https://www.jianshu.com/p/f2e88197e81d
+"""
+
 
 fig,(ax0,ax1)= plt.subplots(1,2, figsize=(8, 6))
 ax0.imshow(cleared,plt.cm.gray)
